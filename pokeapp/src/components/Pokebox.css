@@ -1,0 +1,12 @@
+.main-box-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+	padding: 1.5em;
+}
+
+.maindiv {
+	padding: 2em 2em;
+	box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
+}

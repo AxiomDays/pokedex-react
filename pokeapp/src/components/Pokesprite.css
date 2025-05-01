@@ -1,0 +1,26 @@
+.outer-sprite-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.sprite-box {
+	width: auto;
+	height: auto;
+	background-color: white;
+	justify-content: center;
+	align-items: center;
+	border-radius: 15%;
+	border-width: 10mm;
+	border-color: black;
+	border: solid;
+	padding: 0em 4em;
+	margin: 1em 0em;
+}
+
+.sprite {
+	width: 15em;
+	object-fit: cover;
+	justify-content: center;
+	align-items: center;
+}
