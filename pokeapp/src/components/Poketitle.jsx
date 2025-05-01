@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./Poketitle.css";
 
-function Poketitle({ id, name }) {
+function Poketitle({ id, name, icon }) {
 	return (
 		<>
 			<div className="container">
@@ -16,7 +16,16 @@ function Poketitle({ id, name }) {
 								{id} : {name}
 							</th>
 							<th className="title-img col-lg-2 col-12">
-								<img src={normal} alt="" srcset="" />
+								{icon[0] ? (
+									<img className="pe-2" src={icon[0]} alt="" srcset="" />
+								) : (
+									<img src={icon} alt="" srcset="" />
+								)}
+								{icon[1] && (
+									<>
+										<img src={icon[1]} alt="" srcset="" />
+									</>
+								)}
 							</th>
 						</tr>
 					</table>

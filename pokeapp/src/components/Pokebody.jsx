@@ -18,7 +18,7 @@ function Pokebody({
 		<>
 			<div className="container-fluid outer-body">
 				<table className="poketable row col-12">
-					<thead className="body-name">{nature}</thead>
+					<thead className="nature">{nature}</thead>
 					<thead className="body-name pt-1">Ability: {ability}</thead>
 					<thead className="statsrow">Stats</thead>
 					<thead className="row">

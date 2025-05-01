@@ -6,19 +6,21 @@ import "./Pokebox.css";
 import Poketitle from "./Poketitle";
 import Pokebody from "./Pokebody";
 import ditto from "../assets/pokeball spin (1).gif";
+import normal from "../assets/1.png";
 import Pokesprite from "./Pokesprite";
 
 const BASE_URL = "https://pokeapi.co/api/v2";
 
 /** TO DO
  * Add loading graphic (X)
- * replace loading graphic with cute pokeball
- * edit table so it looks nicer and doesnt move around
- * add height and weight and any other cool characteristic
- * download type images
- * create array map for type images
- * change colours entirely
+ * replace loading graphic with cute pokeball (X)
+ * edit table so it looks nicer and doesnt move around (X)
+ * add height and weight and any other cool characteristic(X)
+ * download type images (X)
+ * create array map for type images(X)
  * add left/right buttons, if id == 1, no left button
+ * change colours entirely
+ *
  * add search
  * add cry when poke loaded?
  * change bg colour based on typing??
@@ -29,6 +31,8 @@ function Pokebox() {
 	const [currentId, setCurrentId] = useState(2);
 	const [id, setid] = useState(1);
 	const [name, setname] = useState("ditto");
+	let [typeArr, setTypeArr] = useState([]);
+	let [imgArr, setimgArr] = useState([]);
 	const [art, setArt] = useState(ditto);
 	const [nature, setnature] = useState("ditto");
 	const [ability, setability] = useState("ditto");
@@ -38,6 +42,7 @@ function Pokebox() {
 	const [SpAttack, setSpAttack] = useState(1);
 	const [SpDefense, setSpDefense] = useState(1);
 	const [Speed, setSpeed] = useState(1);
+	let temp = [];
 
 	useEffect(() => {
 		const fetchpoke = async () => {
@@ -47,7 +52,7 @@ function Pokebox() {
 			console.log(currentPokemon);
 			setid(currentPokemon["id"]);
 			setname(currentPokemon["name"]);
-			
+
 			setability(
 				String(currentPokemon["abilities"][0]["ability"]["name"])
 					.charAt(0)
@@ -63,13 +68,33 @@ function Pokebox() {
 			setArt(
 				currentPokemon["sprites"]["other"]["official-artwork"]["front_default"]
 			);
-			setLoading(false);
 
 			const response2 = await fetch(`${BASE_URL}/pokemon-species/${currentId}`);
 			const currentBio = await response2.json();
-            console.log(currentBio);
-            setnature(currentBio["flavor_text_entries"][0]["flavor_text"]);
+			console.log(currentBio);
+			setnature(currentBio["flavor_text_entries"][2]["flavor_text"]);
 
+			const typeList = currentPokemon["types"];
+
+			setTypeArr((typeArr = []));
+			for (let x in typeList) {
+				setTypeArr(typeArr.push(typeList[x]["type"]["url"]));
+			}
+			console.log(typeArr);
+
+			setimgArr((imgArr = []));
+			for (let ptype in typeArr) {
+				let response3 = await fetch(typeArr[ptype]);
+				let currentImg = await response3.json();
+				console.log(currentImg);
+				setimgArr(
+					imgArr.push(
+						currentImg["sprites"]["generation-vi"]["x-y"]["name_icon"]
+					)
+				);
+			}
+			setimgArr(imgArr);
+			setLoading(false);
 		};
 
 		fetchpoke();
@@ -80,7 +105,12 @@ function Pokebox() {
 			<div className="container-fluid">
 				<div className="main-box-row">
 					<div className="row maindiv col-xl-4 col-md-6 col-12">
-						<Poketitle id={id} name={name} />
+						{isLoading ? (
+							<Poketitle id={id} name={name} icon={ditto} />
+						) : (
+							<Poketitle id={id} name={name} icon={imgArr} />
+						)}
+
 						{isLoading ? (
 							<Pokesprite sprite={ditto} />
 						) : (

@@ -10,10 +10,10 @@
 }
 
 thead {
-    display: flex;
+	display: flex;
 	justify-content: center;
 	align-items: center;
-    text-align: center;
+	text-align: center;
 }
 
 .statsrow {
@@ -27,5 +27,16 @@ thead {
 
 .body-name {
 	font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+	font-size: 5mm;
+}
+
+.nature {
+	font-style: italic;
+	color: rgba(24, 24, 24, 0.747);
+	opacity: 90%;
+	font-family: "Rubik", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 300;
+	font-style: normal;
 	font-size: 5mm;
 }
