@@ -6,13 +6,14 @@ import "bootstrap/dist/js/bootstrap.js";
 import "./App.css";
 import Header from "./components/Header";
 import Pokebox from "./components/Pokebox";
+import Footer from "./components/Footer";
 
 function App() {
-
 	return (
 		<>
 			<Header />
 			<Pokebox />
+			<Footer />
 		</>
 	);
 }

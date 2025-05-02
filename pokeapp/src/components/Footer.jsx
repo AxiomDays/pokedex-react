@@ -1,18 +1,18 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import "./Header.css";
+import "./Footer.css";
 import viteLogo from "/vite.svg";
 
-function Header() {
+function Footer() {
 	return (
 		<>
-			<div className="navbar nav-div">
+			<div className="footbar foot-div">
 				<div className="row justify-content-left align-items-center">
-					<div className="headerbox"></div>
+					<div className="footerbox"></div>
 				</div>
 			</div>
 		</>
 	);
 }
 
-export default Header;
+export default Footer;

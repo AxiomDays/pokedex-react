@@ -9,4 +9,92 @@
 .maindiv {
 	padding: 2em 2em;
 	box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
+	background-image: repeating-linear-gradient(
+		-45deg,
+		rgba(255, 255, 255, 0.3),
+		rgba(255, 255, 255, 0.3) 1px,
+		transparent 1px,
+		transparent 6px
+	);
+	background-size: 10px 10px;
+}
+
+#fighting {
+	background-color: rgb(255, 128, 0);
+}
+
+#normal {
+	background-color: rgb(153, 154, 144);
+}
+
+#fire {
+	background-color: rgb(247, 29, 0);
+}
+
+#water {
+	background-color: rgb(149, 191, 218);
+}
+
+#grass {
+	background-color: rgb(63, 161, 41);
+}
+
+#electric {
+	background-color: rgb(242, 233, 76);
+}
+
+#bug {
+	background-color: rgb(145, 161, 25);
+}
+
+#poison {
+	background-color: rgb(145, 65, 203);
+}
+
+#flying {
+	background-color: rgb(129, 185, 239);
+}
+
+#ground {
+	background-color: rgb(145, 81, 33);
+}
+
+#psychic {
+	background-color: rgb(239, 65, 121);
+}
+
+#rock {
+	background-color: rgb(175, 169, 129);
+}
+
+#ice {
+	background-color: rgb(61, 206, 243);
+}
+
+#bug {
+	background-color: rgb(145, 161, 25);
+}
+
+#dragon {
+	background-color: rgb(80, 96, 225);
+}
+
+#ghost {
+	background-color: rgb(112, 65, 112);
+}
+
+#dark {
+	background-color: rgb(98, 77, 78);
+}
+
+#steel {
+	background-color: rgb(96, 161, 184);
+}
+
+#fairy {
+	background-color: rgb(239, 112, 239);
+}
+
+#stellar {
+	background-color: rgb(64, 181, 165);
 }

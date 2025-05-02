@@ -19,11 +19,11 @@ const BASE_URL = "https://pokeapi.co/api/v2";
  * download type images (X)
  * create array map for type images(X)
  * add left/right buttons, if id == 1, no left button
- * change colours entirely
- *
+ * change colours entirely (X)
+ * add in sliding in animation
  * add search
  * add cry when poke loaded?
- * change bg colour based on typing??
+ * change bg colour based on typing??(X)
  * **/
 
 function Pokebox() {
@@ -33,6 +33,7 @@ function Pokebox() {
 	const [name, setname] = useState("ditto");
 	let [typeArr, setTypeArr] = useState([]);
 	let [imgArr, setimgArr] = useState([]);
+	let [colorArr, setcolorArr] = useState([]);
 	const [art, setArt] = useState(ditto);
 	const [nature, setnature] = useState("ditto");
 	const [ability, setability] = useState("ditto");
@@ -42,7 +43,11 @@ function Pokebox() {
 	const [SpAttack, setSpAttack] = useState(1);
 	const [SpDefense, setSpDefense] = useState(1);
 	const [Speed, setSpeed] = useState(1);
-	let temp = [];
+
+	function changeBackground(color) {
+		document.getElementsByClassName("maindiv")[0].id = color;
+		console.log(document.getElementsByClassName("maindiv")[0].id);
+	}
 
 	useEffect(() => {
 		const fetchpoke = async () => {
@@ -83,6 +88,7 @@ function Pokebox() {
 			console.log(typeArr);
 
 			setimgArr((imgArr = []));
+			setcolorArr((colorArr = []));
 			for (let ptype in typeArr) {
 				let response3 = await fetch(typeArr[ptype]);
 				let currentImg = await response3.json();
@@ -92,8 +98,13 @@ function Pokebox() {
 						currentImg["sprites"]["generation-vi"]["x-y"]["name_icon"]
 					)
 				);
+
+				setcolorArr(colorArr.push(currentImg["name"]));
 			}
 			setimgArr(imgArr);
+			setcolorArr(colorArr);
+			console.log(colorArr);
+			changeBackground(colorArr[0]);
 			setLoading(false);
 		};
 
@@ -104,7 +115,7 @@ function Pokebox() {
 		<>
 			<div className="container-fluid">
 				<div className="main-box-row">
-					<div className="row maindiv col-xl-4 col-md-6 col-12">
+					<div id="colorbox" className="row maindiv col-xl-4 col-md-6 col-12">
 						{isLoading ? (
 							<Poketitle id={id} name={name} icon={ditto} />
 						) : (

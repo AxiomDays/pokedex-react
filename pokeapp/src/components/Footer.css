@@ -1,11 +1,15 @@
-.headerbox{
+.footerbox {
 	padding-top: 2mm;
 	padding-bottom: 2mm;
 }
 
-.nav-div {
+.foot-div {
 	width: 100%;
-	height: fit-content;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	height: 2em;
+	text-align: center;
 	background-color: rgb(26, 18, 18);
 	box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
 }
