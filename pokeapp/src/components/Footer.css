@@ -1,6 +1,6 @@
 .footerbox {
-	padding-top: 2mm;
-	padding-bottom: 2mm;
+	padding-top: 3mm;
+	padding-bottom: 3mm;
 }
 
 .foot-div {
@@ -12,4 +12,9 @@
 	text-align: center;
 	background-color: rgb(26, 18, 18);
 	box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
+}
+
+.input-box {
+	padding: 2em;
+    border-radius: 15%;
 }

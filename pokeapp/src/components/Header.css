@@ -1,11 +1,19 @@
-.headerbox{
+.headerbox {
+	display: flex;
+	justify-content: center;
 	padding-top: 2mm;
 	padding-bottom: 2mm;
 }
 
 .nav-div {
-	width: 100%;
+	
 	height: fit-content;
 	background-color: rgb(26, 18, 18);
 	box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
+	text-align: center;
+	justify-content: center;
+}
+
+.search-icon {
+	size: 50%;
 }

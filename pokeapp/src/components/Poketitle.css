@@ -1,13 +1,13 @@
 .title-row {
 	display: flex;
-	padding: 3px;
+	padding: 1px;
 }
 
 .title-name {
 	display: flex;
 	font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 	font-size: 25px;
-	padding: 0.5em 1.5em;
+	padding: 0.1em 1.5em;
 	align-items: center;
 }
 

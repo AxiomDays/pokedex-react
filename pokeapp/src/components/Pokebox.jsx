@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import viteLogo from "/vite.svg";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./Pokebox.css";
 import Poketitle from "./Poketitle";
 import Pokebody from "./Pokebody";
 import ditto from "../assets/pokeball spin (1).gif";
-import normal from "../assets/1.png";
+import Header from "../components/Header";
+import next from "../assets/unown-n.png";
+import prev from "../assets/unown-p.png";
 import Pokesprite from "./Pokesprite";
 
 const BASE_URL = "https://pokeapi.co/api/v2";
@@ -18,17 +19,20 @@ const BASE_URL = "https://pokeapi.co/api/v2";
  * add height and weight and any other cool characteristic(X)
  * download type images (X)
  * create array map for type images(X)
- * add left/right buttons, if id == 1, no left button
+ * add left/right buttons, if id == 1, no left button (X)
  * change colours entirely (X)
- * add in sliding in animation
- * add search
- * add cry when poke loaded?
+ * add background to image maybe?(X)
+ * add in sliding in animation (-)
+ * add search(X)
+ * add cry when poke loaded?(X)
+ * fix api fuckery that happens at 800+
  * change bg colour based on typing??(X)
  * **/
 
 function Pokebox() {
 	const [isLoading, setLoading] = useState(false);
-	const [currentId, setCurrentId] = useState(2);
+	const [currentId, setCurrentId] = useState(400);
+	const [error, setError] = useState();
 	const [id, setid] = useState(1);
 	const [name, setname] = useState("ditto");
 	let [typeArr, setTypeArr] = useState([]);
@@ -37,6 +41,7 @@ function Pokebox() {
 	const [art, setArt] = useState(ditto);
 	const [nature, setnature] = useState("ditto");
 	const [ability, setability] = useState("ditto");
+	const [cry, setCry] = useState();
 	const [HP, setHP] = useState(1);
 	const [Attack, setAttack] = useState(1);
 	const [Defense, setDefense] = useState(1);
@@ -48,6 +53,23 @@ function Pokebox() {
 		document.getElementsByClassName("maindiv")[0].id = color;
 		console.log(document.getElementsByClassName("maindiv")[0].id);
 	}
+
+	const changeId = async (ID) => {
+		try {
+			const response5 = await fetch(`${BASE_URL}/pokemon/${ID}`);
+			const currentSearch = await response5.json();
+			console.log(currentSearch);
+			setCurrentId(currentSearch["id"]);
+		} catch (e) {
+			setError(e);
+			alert("This pokemon does not exist fn");
+		}
+	};
+
+	const surpriseMe = () => {
+		let randId = Math.floor(Math.random() * 1026);
+		setCurrentId(randId);
+	};
 
 	useEffect(() => {
 		const fetchpoke = async () => {
@@ -73,11 +95,20 @@ function Pokebox() {
 			setArt(
 				currentPokemon["sprites"]["other"]["official-artwork"]["front_default"]
 			);
+			setCry(currentPokemon["cries"]["latest"]);
 
 			const response2 = await fetch(`${BASE_URL}/pokemon-species/${currentId}`);
 			const currentBio = await response2.json();
 			console.log(currentBio);
-			setnature(currentBio["flavor_text_entries"][2]["flavor_text"]);
+			for (let txt in currentBio["flavor_text_entries"]) {
+				console.log(currentBio["flavor_text_entries"][txt]["language"]["name"]);
+				if (
+					currentBio["flavor_text_entries"][txt]["language"]["name"] == "en"
+				) {
+					setnature(currentBio["flavor_text_entries"][txt]["flavor_text"]);
+					break;
+				}
+			}
 
 			const typeList = currentPokemon["types"];
 
@@ -113,8 +144,40 @@ function Pokebox() {
 
 	return (
 		<>
+			<Header changeId={changeId} surpriseMe={surpriseMe} />
 			<div className="container-fluid">
-				<div className="main-box-row">
+				<div className="tap-row row">
+					<div
+						className="leftbuttonmobile col-4 d-md-none d-block"
+						onClick={() => {
+							if (currentId > 1) {
+								setCurrentId(currentId - 1);
+							}
+						}}
+					></div>
+					<div
+						className="rightbuttonmobile col-4 d-md-none d-block"
+						onClick={() => {
+							if (currentId < 1025) {
+								setCurrentId(currentId + 1);
+							} else {
+								setCurrentId(1);
+							}
+						}}
+					></div>
+				</div>
+				<div className="main-box-row row">
+					<div
+						className="leftbutton col-1 d-none d-md-block"
+						onClick={() => {
+							if (currentId > 1) {
+								setCurrentId(currentId - 1);
+							}
+						}}
+					>
+						<img src={prev} alt="" />
+					</div>
+
 					<div id="colorbox" className="row maindiv col-xl-4 col-md-6 col-12">
 						{isLoading ? (
 							<Poketitle id={id} name={name} icon={ditto} />
@@ -127,6 +190,16 @@ function Pokebox() {
 						) : (
 							<Pokesprite sprite={art} />
 						)}
+
+						{isLoading ? (
+							""
+						) : (
+							<audio autoPlay>
+								<source src={cry} type="audio/ogg"></source>
+								Your browser does not support the audio element.
+							</audio>
+						)}
+
 						<Pokebody
 							nature={nature}
 							ability={ability}
@@ -138,14 +211,18 @@ function Pokebox() {
 							Speed={Speed}
 						/>
 					</div>
-					<button
-						className="next-pokemon"
+					<div
+						className="rightbutton col-1 d-none d-md-block"
 						onClick={() => {
-							setCurrentId(currentId + 1);
+							if (currentId < 1025) {
+								setCurrentId(currentId + 1);
+							} else {
+								setCurrentId(1);
+							}
 						}}
 					>
-						NEXT
-					</button>
+						<img src={next} alt="" srcset="" />
+					</div>
 				</div>
 			</div>
 		</>

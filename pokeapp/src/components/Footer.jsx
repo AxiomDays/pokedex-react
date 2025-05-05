@@ -7,9 +7,7 @@ function Footer() {
 	return (
 		<>
 			<div className="footbar foot-div">
-				<div className="row justify-content-left align-items-center">
-					<div className="footerbox"></div>
-				</div>
+				<div className="row justify-content-left align-items-center"></div>
 			</div>
 		</>
 	);
