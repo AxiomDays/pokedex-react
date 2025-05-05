@@ -25,7 +25,10 @@ const BASE_URL = "https://pokeapi.co/api/v2";
  * add in sliding in animation (-)
  * add search(X)
  * add cry when poke loaded?(X)
- * fix api fuckery that happens at 800+
+ * fix api fuckery that happens at 800+(X)
+ * EXTRASSSSS
+ * Add flip page with 3d transform that shows available moves
+ * try and do the coloration gradient thing from stack exchange
  * change bg colour based on typing??(X)
  * **/
 
@@ -209,6 +212,7 @@ function Pokebox() {
 							SpAttack={SpAttack}
 							SpDefense={SpDefense}
 							Speed={Speed}
+							color={colorArr[0]}
 						/>
 					</div>
 					<div

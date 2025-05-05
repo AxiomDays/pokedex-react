@@ -13,12 +13,25 @@ function Pokebody({
 	SpAttack,
 	SpDefense,
 	Speed,
+	color,
 }) {
+	if (
+		color == "dark" ||
+		color == "ghost" ||
+		color == "rock" ||
+		color == "poison"
+	) {
+		document.getElementsByClassName("nature")[0].id = "white";
+	} else {
+		document.getElementsByClassName("nature")[0].id = "black";
+	}
 	return (
 		<>
 			<div className="container-fluid outer-body">
 				<table className="poketable row col-12">
-					<thead className="nature">{nature}</thead>
+					<thead className="nature" id="black">
+						{nature}
+					</thead>
 					<thead className="body-name pt-1">Ability: {ability}</thead>
 					<thead className="statsrow">Stats</thead>
 					<thead className="row">

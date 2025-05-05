@@ -32,11 +32,19 @@ thead {
 
 .nature {
 	font-style: italic;
-	color: rgba(24, 24, 24, 0.747);
+	
 	opacity: 110%;
 	font-family: "Rubik", sans-serif;
 	font-optical-sizing: auto;
 	font-weight: 300;
 	font-style: normal;
 	font-size: 5mm;
+}
+
+#white{
+    color: beige;
+}
+
+#black{
+    color: rgba(24, 24, 24, 0.747);
 }
