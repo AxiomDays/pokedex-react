@@ -65,7 +65,7 @@ function Pokebody({
 						</td>
 					</thead>
 					<thead className="row">
-						<td className="body-name col-6">Defence: {Defense}</td>
+						<td className="body-name col-6">Defense: {Defense}</td>
 
 						<td className="body-name col-6">Sp. Atk: {SpAttack}</td>
 					</thead>
