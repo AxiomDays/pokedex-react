@@ -15,21 +15,24 @@ function Pokebody({
 	Speed,
 	color,
 }) {
-	if (
-		color == "dark" ||
-		color == "ghost" ||
-		color == "rock" ||
-		color == "poison"
-	) {
-		document.getElementsByClassName("nature")[0].id = "white";
-	} else {
-		document.getElementsByClassName("nature")[0].id = "black";
+	const elem = document.getElementsByClassName("nature")[0];
+	if (elem) {
+		if (
+			color == "dark" ||
+			color == "ghost" ||
+			color == "rock" ||
+			color == "poison"
+		) {
+			elem.id = "white";
+		} else {
+			elem.id = "black";
+		}
 	}
 	return (
 		<>
 			<div className="container-fluid outer-body">
 				<table className="poketable row col-12">
-					<thead className="nature" id="black">
+					<thead className="nature" id="white">
 						{nature}
 					</thead>
 					<thead className="body-name pt-1">Ability: {ability}</thead>
