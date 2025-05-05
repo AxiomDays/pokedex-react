@@ -31,7 +31,7 @@ const BASE_URL = "https://pokeapi.co/api/v2";
 
 function Pokebox() {
 	const [isLoading, setLoading] = useState(false);
-	const [currentId, setCurrentId] = useState(400);
+	const [currentId, setCurrentId] = useState(1);
 	const [error, setError] = useState();
 	const [id, setid] = useState(1);
 	const [name, setname] = useState("ditto");
