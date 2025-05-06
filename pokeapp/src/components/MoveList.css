@@ -1,0 +1,41 @@
+.movelist {
+	overflow: auto;
+	background-color: aliceblue;
+	border-radius: 5%;
+	border-width: 2mm;
+	border-style: solid;
+	border-color: rgb(11, 39, 39);
+	font-weight: 300;
+	font-style: italic;
+	font-family: "Rubik", sans-serif;
+	font-optical-sizing: auto;
+	text-decoration: none;
+	list-style-type: none;
+	max-height: 70vh;
+	min-height: 70vh;
+}
+
+.movelist li {
+	border-width: 1mm;
+	border-color: rgb(11, 39, 39);
+	border-style: solid;
+	padding: 2mm;
+}
+
+.title {
+	font-weight: 300;
+	font-style: bold;
+	font-family: "Rubik", sans-serif;
+	text-align: center;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrbar::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrbar {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}

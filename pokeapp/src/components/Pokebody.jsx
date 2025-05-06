@@ -1,5 +1,3 @@
-import { useState } from "react";
-import viteLogo from "/vite.svg";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import "./Pokebody.css";
@@ -21,7 +19,8 @@ function Pokebody({
 			color == "dark" ||
 			color == "ghost" ||
 			color == "rock" ||
-			color == "poison"
+			color == "poison" ||
+            color == "dragon"
 		) {
 			elem.id = "white";
 		} else {

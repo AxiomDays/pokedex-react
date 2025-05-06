@@ -8,9 +8,14 @@ import ditto from "../assets/pokeball spin (1).gif";
 import Header from "../components/Header";
 import next from "../assets/unown-n.png";
 import prev from "../assets/unown-p.png";
+import playBtn from "../assets/play-button-arrowhead.png";
+import rowBtn from "../assets/row.png";
 import Pokesprite from "./Pokesprite";
+import MoveList from "./MoveList";
 
 const BASE_URL = "https://pokeapi.co/api/v2";
+const attribution =
+	'<a href="https://www.flaticon.com/free-icons/play" title="play icons">Play icons created by Freepik - Flaticon</a>';
 
 /** TO DO
  * Add loading graphic (X)
@@ -29,11 +34,13 @@ const BASE_URL = "https://pokeapi.co/api/v2";
  * EXTRASSSSS
  * Add flip page with 3d transform that shows available moves
  * try and do the coloration gradient thing from stack exchange
+ * add cry play button to the bottom next to flip button
  * change bg colour based on typing??(X)
  * **/
 
 function Pokebox() {
 	const [isLoading, setLoading] = useState(false);
+	const [isMoveList, setMoveList] = useState(true);
 	const [currentId, setCurrentId] = useState(1);
 	const [error, setError] = useState();
 	const [id, setid] = useState(1);
@@ -41,6 +48,7 @@ function Pokebox() {
 	let [typeArr, setTypeArr] = useState([]);
 	let [imgArr, setimgArr] = useState([]);
 	let [colorArr, setcolorArr] = useState([]);
+	let [moveArr, setMoveArr] = useState([]);
 	const [art, setArt] = useState(ditto);
 	const [nature, setnature] = useState("ditto");
 	const [ability, setability] = useState("ditto");
@@ -51,6 +59,62 @@ function Pokebox() {
 	const [SpAttack, setSpAttack] = useState(1);
 	const [SpDefense, setSpDefense] = useState(1);
 	const [Speed, setSpeed] = useState(1);
+	const element = document.getElementsByClassName("maindiv")[0];
+
+	async function createMoveArr() {
+		const response6 = await fetch(`${BASE_URL}/pokemon/${currentId}`);
+		const currentPokemon = await response6.json();
+		let templist = currentPokemon["moves"];
+		console.log(templist);
+		let temparr = [];
+		for (let moveval in templist) {
+			for (let verval in templist[moveval]["version_group_details"]) {
+				if (verval == templist[moveval]["version_group_details"].length - 1) {
+					if (
+						templist[moveval]["version_group_details"][verval][
+							"move_learn_method"
+						]["name"] == "level-up"
+					) {
+						temparr.push([
+							templist[moveval]["move"]["name"],
+							templist[moveval]["version_group_details"][verval][
+								"level_learned_at"
+							],
+						]);
+					}
+				}
+			}
+			temparr.sort(function (a, b) {
+				return a[1] - b[1];
+			});
+			setMoveArr(temparr);
+
+			console.log(moveArr);
+		}
+	}
+
+	const flipAnimation = async () => {
+		element.classList.remove("flip"); // reset animation
+		void element.offsetWidth; // trigger reflow
+		element.classList.add("flip"); // start animation
+		createMoveArr();
+		await new Promise((r) => setTimeout(r, 150));
+		setMoveList(!isMoveList);
+	};
+
+	const swapPage = async () => {
+		element.classList.remove("flip"); // reset animation
+		void element.offsetWidth; // trigger reflow
+		element.classList.add("flip"); // start animation
+		await new Promise((r) => setTimeout(r, 150));
+		setMoveList(true);
+	};
+
+	function playCry() {
+		if (cryVar) {
+			cryVar.play();
+		}
+	}
 
 	function changeBackground(color) {
 		document.getElementsByClassName("maindiv")[0].id = color;
@@ -62,6 +126,7 @@ function Pokebox() {
 			const response5 = await fetch(`${BASE_URL}/pokemon/${ID}`);
 			const currentSearch = await response5.json();
 			console.log(currentSearch);
+			swapPage();
 			setCurrentId(currentSearch["id"]);
 		} catch (e) {
 			setError(e);
@@ -145,6 +210,7 @@ function Pokebox() {
 		fetchpoke();
 	}, [currentId]);
 
+	let cryVar = document.getElementById("cry");
 	return (
 		<>
 			<Header changeId={changeId} surpriseMe={surpriseMe} />
@@ -180,41 +246,106 @@ function Pokebox() {
 					>
 						<img src={prev} alt="" />
 					</div>
+					{isMoveList ? (
+						<div id="colorbox" className="row maindiv col-xl-4 col-md-6 col-12">
+							{isLoading ? (
+								<Poketitle id={id} name={name} icon={ditto} />
+							) : (
+								<Poketitle id={id} name={name} icon={imgArr} />
+							)}
 
-					<div id="colorbox" className="row maindiv col-xl-4 col-md-6 col-12">
-						{isLoading ? (
-							<Poketitle id={id} name={name} icon={ditto} />
-						) : (
-							<Poketitle id={id} name={name} icon={imgArr} />
-						)}
+							{isLoading ? (
+								<Pokesprite sprite={ditto} />
+							) : (
+								<Pokesprite sprite={art} />
+							)}
 
-						{isLoading ? (
-							<Pokesprite sprite={ditto} />
-						) : (
-							<Pokesprite sprite={art} />
-						)}
+							{isLoading ? (
+								""
+							) : (
+								<audio id="cry">
+									<source src={cry} type="audio/ogg"></source>
+									Your browser does not support the audio element.
+								</audio>
+							)}
 
-						{isLoading ? (
-							""
-						) : (
-							<audio autoPlay>
-								<source src={cry} type="audio/ogg"></source>
-								Your browser does not support the audio element.
-							</audio>
-						)}
+							<Pokebody
+								nature={nature}
+								ability={ability}
+								HP={HP}
+								Attack={Attack}
+								Defense={Defense}
+								SpAttack={SpAttack}
+								SpDefense={SpDefense}
+								Speed={Speed}
+								color={colorArr[0]}
+							/>
 
-						<Pokebody
-							nature={nature}
-							ability={ability}
-							HP={HP}
-							Attack={Attack}
-							Defense={Defense}
-							SpAttack={SpAttack}
-							SpDefense={SpDefense}
-							Speed={Speed}
-							color={colorArr[0]}
-						/>
-					</div>
+							<div className="playbtnbox col-12 col-md-4 d-none d-md-block">
+								<img
+									src={rowBtn}
+									className="playbtn"
+									onClick={() => {
+										flipAnimation();
+									}}
+								/>
+							</div>
+							<div className="outerbtnrow row">
+								<div className="mobplaybtnbox col-1 d-md-none d-block">
+									<img
+										src={rowBtn}
+										className="playbtn"
+										onClick={() => {
+											flipAnimation();
+										}}
+									/>
+								</div>
+							</div>
+						</div>
+					) : (
+						<div id="colorbox" className="row maindiv col-xl-4 col-md-6 col-12">
+							{<MoveList movelist={moveArr} />}
+
+							<div className="playbtnbox col-12 col-md-4 d-none d-md-flex">
+								<img
+									className="playbtn"
+									src={playBtn}
+									onClick={() => {
+										playCry();
+									}}
+								/>
+								<img
+									src={rowBtn}
+									className="playbtn"
+									onClick={() => {
+										flipAnimation();
+									}}
+								/>
+							</div>
+							<div className="outerbtnrow row">
+								<div className="mobplaybtnbox col-1 d-md-none d-block">
+									<img
+										className="playbtn col"
+										src={playBtn}
+										onClick={() => {
+											playCry();
+										}}
+									/>
+								</div>
+								<div className="mobplaybtnbox col-1 d-md-none d-block"></div>
+								<div className="mobplaybtnbox col-1 d-md-none d-block">
+									<img
+										src={rowBtn}
+										className="playbtn col"
+										onClick={() => {
+											flipAnimation();
+										}}
+									/>
+								</div>
+							</div>
+						</div>
+					)}
+
 					<div
 						className="rightbutton col-1 d-none d-md-block"
 						onClick={() => {
