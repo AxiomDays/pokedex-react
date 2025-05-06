@@ -137,6 +137,7 @@ function Pokebox() {
 	const surpriseMe = () => {
 		let randId = Math.floor(Math.random() * 1026);
 		setCurrentId(randId);
+		swapPage();
 	};
 
 	useEffect(() => {
@@ -221,6 +222,7 @@ function Pokebox() {
 						onClick={() => {
 							if (currentId > 1) {
 								setCurrentId(currentId - 1);
+								swapPage();
 							}
 						}}
 					></div>
@@ -229,8 +231,10 @@ function Pokebox() {
 						onClick={() => {
 							if (currentId < 1025) {
 								setCurrentId(currentId + 1);
+								swapPage();
 							} else {
 								setCurrentId(1);
+								swapPage();
 							}
 						}}
 					></div>
@@ -241,6 +245,7 @@ function Pokebox() {
 						onClick={() => {
 							if (currentId > 1) {
 								setCurrentId(currentId - 1);
+								swapPage();
 							}
 						}}
 					>
@@ -351,8 +356,10 @@ function Pokebox() {
 						onClick={() => {
 							if (currentId < 1025) {
 								setCurrentId(currentId + 1);
+								swapPage();
 							} else {
 								setCurrentId(1);
+								swapPage();
 							}
 						}}
 					>
